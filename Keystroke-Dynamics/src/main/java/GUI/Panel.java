@@ -15,8 +15,10 @@ import java.awt.event.KeyListener;
  */
 public class Panel extends javax.swing.JPanel implements KeyListener{
 
-    private long kezdet, veg;
+    private long pressTime1, pressTime2, releaseTime1, releaseTime2;
+    private double flightTimeT1, flightTimeT2, flightTimeT3, flightTimeT4, dwellTime;
     private Controller controller;
+    private int i;
     /**
      * Creates new form Panel
      */
@@ -34,22 +36,32 @@ public class Panel extends javax.swing.JPanel implements KeyListener{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtSzoveg = new javax.swing.JTextField();
+        txtInput1 = new javax.swing.JTextField();
         lblEredmeny = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtInput2 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        txtSzoveg.setMinimumSize(new java.awt.Dimension(6, 30));
+        txtInput1.setMinimumSize(new java.awt.Dimension(6, 30));
+        txtInput1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtInput1FocusLost(evt);
+            }
+        });
 
         lblEredmeny.setFont(new java.awt.Font("Roboto", 0, 48)); // NOI18N
         lblEredmeny.setText("jLabel1");
 
-        jTextField1.setMinimumSize(new java.awt.Dimension(6, 30));
-        jTextField1.setPreferredSize(new java.awt.Dimension(59, 30));
+        txtInput2.setMinimumSize(new java.awt.Dimension(6, 30));
+        txtInput2.setPreferredSize(new java.awt.Dimension(59, 30));
+        txtInput2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtInput2FocusLost(evt);
+            }
+        });
 
         jLabel1.setText("Írja be kétszer jelszavát!");
 
@@ -58,6 +70,11 @@ public class Panel extends javax.swing.JPanel implements KeyListener{
         jLabel3.setText("Jelszó mégegyszer:");
 
         jButton1.setText("Adatok mentése");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Kiértékelés");
         jButton2.setEnabled(false);
@@ -84,8 +101,8 @@ public class Panel extends javax.swing.JPanel implements KeyListener{
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(lblEredmeny)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                    .addComponent(txtSzoveg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(txtInput2, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                    .addComponent(txtInput1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(0, 9, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -96,11 +113,11 @@ public class Panel extends javax.swing.JPanel implements KeyListener{
                 .addComponent(jLabel1)
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSzoveg, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtInput1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtInput2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblEredmeny)
@@ -111,6 +128,22 @@ public class Panel extends javax.swing.JPanel implements KeyListener{
                 .addGap(23, 23, 23))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        controller.saveToDataBase(txtInput1.getText());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtInput1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInput1FocusLost
+        txtInput1.setEnabled(false);
+        controller.addTyping();
+        i = 0;
+    }//GEN-LAST:event_txtInput1FocusLost
+
+    private void txtInput2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInput2FocusLost
+        txtInput2.setEnabled(false);
+        controller.addTyping();
+        i = 0;
+    }//GEN-LAST:event_txtInput2FocusLost
 
     public Controller getController() {
         return controller;
@@ -127,9 +160,9 @@ public class Panel extends javax.swing.JPanel implements KeyListener{
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblEredmeny;
-    private javax.swing.JTextField txtSzoveg;
+    private javax.swing.JTextField txtInput1;
+    private javax.swing.JTextField txtInput2;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -138,20 +171,58 @@ public class Panel extends javax.swing.JPanel implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        kezdet = e.getWhen();
+        if(i%2==0){
+            pressTime1 = e.getWhen();
+            if(i!=2)
+            {
+                flightTimeT1 = ((double)(pressTime1-releaseTime2))/1000;
+                flightTimeT3 = ((double)(pressTime1-pressTime2))/1000;
+                controller.addFlightTimeT1(flightTimeT1);
+                controller.addFlightTimeT3(flightTimeT3);
+            }
+            
+        }
+        else{
+            pressTime2 = e.getWhen();
+            flightTimeT1 = ((double)(pressTime2-releaseTime1))/1000;
+            flightTimeT3 = ((double)(pressTime2-pressTime1))/1000;
+            controller.addFlightTimeT1(flightTimeT1);
+            controller.addFlightTimeT3(flightTimeT3);
+        }        
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        veg = e.getWhen();
-        double eredmeny = ((double)(veg-kezdet))/1000;
-        lblEredmeny.setText(String.valueOf(eredmeny));
-        System.out.println(veg-kezdet);
+        
+        if(i%2==0){
+            releaseTime1 = e.getWhen();
+            dwellTime = ((double)(releaseTime1-pressTime1))/1000;
+            if(i!=2)
+            {
+                flightTimeT2 = ((double)(releaseTime1-releaseTime2))/1000;
+                flightTimeT4 = ((double)(releaseTime1-pressTime2))/1000;
+                controller.addFlightTimeT2(flightTimeT2);
+                controller.addFlightTimeT4(flightTimeT4);
+            }
+            controller.addDwellTime(dwellTime);
+        }
+        else if((i%2)!=0){ 
+            releaseTime2 = e.getWhen();
+            dwellTime = ((double)(releaseTime2-pressTime2))/1000;
+            flightTimeT2 = ((double)(releaseTime2-releaseTime1))/1000;
+            flightTimeT4 = ((double)(releaseTime2-pressTime1))/1000;
+            controller.addFlightTimeT2(flightTimeT2);
+            controller.addFlightTimeT3(flightTimeT3);
+            controller.addDwellTime(dwellTime);
+        }
+        i++;
     }
 
     private void setting() {
-        txtSzoveg.addKeyListener(this);
+        txtInput1.addKeyListener(this);
+        txtInput2.addKeyListener(this);
+        i = 2;
     }
     
-
+    
 }

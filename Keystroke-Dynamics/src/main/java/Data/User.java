@@ -5,11 +5,18 @@
  */
 package Data;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Annamari
  */
 public class User {
-    
-    
+    private String password;
+    private ArrayList<Typing> typings;
+
+    public User(String password, ArrayList<Typing> typings) {
+        this.password = password;
+        this.typings = typings;
+    }
 }
