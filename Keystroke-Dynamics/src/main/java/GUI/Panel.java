@@ -18,11 +18,13 @@ import javax.swing.JTextField;
  */
 public class Panel extends javax.swing.JPanel implements KeyListener{
 
-    private long pressTime1, pressTime2, releaseTime1, releaseTime2;
-    private double flightTimeT1, flightTimeT2, flightTimeT3, flightTimeT4, dwellTime;
+    //private long pressTime1, pressTime2, releaseTime1, releaseTime2;
+    //private double flightTimeT1, flightTimeT2, flightTimeT3, flightTimeT4, dwellTime;
     private Controller controller;
-    private int i;
+    //private int i;
     private ArrayList<JTextField> txtInputs = new ArrayList<JTextField>();
+    private ArrayList<Long> pressTimes = new ArrayList<>();
+    private ArrayList<Long> releaseTimes = new ArrayList<>();
     /**
      * Creates new form Panel
      */
@@ -389,7 +391,10 @@ public class Panel extends javax.swing.JPanel implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode()!= KeyEvent.VK_BACK_SPACE)
+        pressTimes.add(e.getWhen());
+        
+        
+        /*if(e.getKeyCode()!= KeyEvent.VK_BACK_SPACE)
         {
             if(i%2==0){
                 pressTime1 = e.getWhen();
@@ -412,14 +417,16 @@ public class Panel extends javax.swing.JPanel implements KeyListener{
         }
         else
         {
-             controller.removeFlightTimeT1(flightTimeT1);
+             controller.removeFlightTimeT1();
              i--;
-        }
+        }*/
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if(e.getKeyCode()!= KeyEvent.VK_BACK_SPACE)
+        releaseTimes.add(e.getWhen());
+        checkPassLength();
+        /*if(e.getKeyCode()!= KeyEvent.VK_BACK_SPACE)
         {
             if(i%2==0){
                 releaseTime1 = e.getWhen();
@@ -430,7 +437,7 @@ public class Panel extends javax.swing.JPanel implements KeyListener{
                     flightTimeT4 = ((double)(releaseTime1-pressTime2))/1000;
                     controller.addFlightTimeT2(flightTimeT2);
                     controller.addFlightTimeT4(flightTimeT4);
-                }*/
+                }
 
                 controller.addDwellTime(dwellTime);
             }
@@ -448,16 +455,15 @@ public class Panel extends javax.swing.JPanel implements KeyListener{
         }
         else
         {
-             controller.removeDwellTime(dwellTime);
+             controller.removeDwellTime();
              i--;
-        }
+        } */
     }
 
     private void setting() {
         txtInputsListIN();
         addKeyListeners();
         lblPassword.setText(Global.PASSWORD);
-        i = 2;
         
     }
 
@@ -466,9 +472,11 @@ public class Panel extends javax.swing.JPanel implements KeyListener{
             if(txtInput.getText().equals(Global.PASSWORD)&& txtInput.isEnabled())
             {
                 txtInput.setEnabled(false);
-                controller.addTyping();
-                i = 0;
+                controller.calculate(pressTimes,releaseTimes);
+                pressTimes.clear();
+                releaseTimes.clear();
             }
+            
         }
     }
 
@@ -494,6 +502,13 @@ public class Panel extends javax.swing.JPanel implements KeyListener{
     private void addKeyListeners() {
         for (JTextField txtInput : txtInputs) {
             txtInput.addKeyListener(this);
+        }
+    }
+
+    public void txtSetEnable(boolean b) {
+        for (JTextField txtInput : txtInputs) {
+            txtInput.setText("");
+            txtInput.setEnabled(b);
         }
     }
     

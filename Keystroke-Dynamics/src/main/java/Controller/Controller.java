@@ -82,15 +82,16 @@ public class Controller {
        User user = new User(name, typings);
        InsertDB insertDB = new InsertDB();
        insertDB.Start(user);
+       panel.txtSetEnable(true);
     }
 
-    public void removeFlightTimeT1(double flightTimeT1) {
-        flightTimesT1.remove(flightTimeT1);
+    /*public void removeFlightTimeT1() {
+        flightTimesT1.remove(flightTimesT1.size()-1);
     }
 
-    public void removeDwellTime(double dwellTime) {
-        dwellTimes.remove(dwellTime);
-    }
+    public void removeDwellTime() {
+        dwellTimes.remove(dwellTimes.size()-1);
+    }*/
     
     public void CreateConnection() throws ClassNotFoundException, SQLException{
         // az adatbázis driver meghatározása
@@ -99,5 +100,16 @@ public class Controller {
         String url = "jdbc:derby://localhost:1527/KeyStrokeDynamicsDB";
         // kapcsolodas az adatbázishoz
         connection = DriverManager.getConnection(url, "feAnnamari", "keystroke");
+    }
+
+    public void calculate(ArrayList<Long> pressTimes, ArrayList<Long> releaseTimes) {
+        for (int i = 0; i < pressTimes.size(); i++) {
+            dwellTimes.add(((double)releaseTimes.get(i)-(double)pressTimes.get(i))/1000);
+        }
+        
+        for (int i = 0; i < pressTimes.size()-1; i++) {
+            flightTimesT1.add(((double)pressTimes.get(i+1)-(double)releaseTimes.get(i))/1000);
+        }  
+        addTyping();
     }
 }
