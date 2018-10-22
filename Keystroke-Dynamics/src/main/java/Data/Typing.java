@@ -25,4 +25,14 @@ public class Typing {
         this.dwellTimes.addAll(dwellTimes);
         this.flightTimesT1.addAll(flightTimesT1);
     }
+
+    public ArrayList<Double> getDwellTimes() {
+        return dwellTimes;
+    }
+
+    public ArrayList<Double> getFlightTimesT1() {
+        return flightTimesT1;
+    }
+    
+    
 }

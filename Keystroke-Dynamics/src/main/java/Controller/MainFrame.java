@@ -11,8 +11,8 @@ package Controller;
  */
 public class MainFrame extends javax.swing.JFrame {
 
-        private final int WIDTH = 370;
-        private final int HEIGHT = 370;
+        private final int WIDTH = 380;
+        private final int HEIGHT = 700;
 
     public MainFrame() {
         initComponents();

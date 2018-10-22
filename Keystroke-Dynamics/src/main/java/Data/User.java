@@ -12,11 +12,19 @@ import java.util.ArrayList;
  * @author Annamari
  */
 public class User {
-    private String password;
+    private String name;
     private ArrayList<Typing> typings;
 
-    public User(String password, ArrayList<Typing> typings) {
-        this.password = password;
+    public User(String name, ArrayList<Typing> typings) {
+        this.name = name;
         this.typings = typings;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public ArrayList<Typing> getTypings() {
+        return typings;
     }
 }

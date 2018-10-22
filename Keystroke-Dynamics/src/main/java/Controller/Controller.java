@@ -6,9 +6,13 @@
 package Controller;
 
 import Controller.MainFrame;
+import Data.InsertDB;
 import Data.Typing;
 import Data.User;
 import GUI.Panel;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -25,6 +29,8 @@ public class Controller {
     private ArrayList<Double> flightTimesT3 = new ArrayList<>();
     private ArrayList<Double> flightTimesT4 = new ArrayList<>();*/
     private ArrayList<Typing> typings = new ArrayList<>();
+    
+    private Connection connection;
 
     public Controller(Panel panel, MainFrame mainFrame) {
         this.panel = panel;
@@ -72,7 +78,26 @@ public class Controller {
         flightTimesT4.clear();*/
     }
 
-    public void saveToDataBase(String password) {
-       User user = new User(password, typings);
+    public void saveToDataBase(String name) {
+       User user = new User(name, typings);
+       InsertDB insertDB = new InsertDB();
+       insertDB.Start(user);
+    }
+
+    public void removeFlightTimeT1(double flightTimeT1) {
+        flightTimesT1.remove(flightTimeT1);
+    }
+
+    public void removeDwellTime(double dwellTime) {
+        dwellTimes.remove(dwellTime);
+    }
+    
+    public void CreateConnection() throws ClassNotFoundException, SQLException{
+        // az adatbázis driver meghatározása
+        Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+        // az adatbázis definiálása
+        String url = "jdbc:derby://localhost:1527/KeyStrokeDynamicsDB";
+        // kapcsolodas az adatbázishoz
+        connection = DriverManager.getConnection(url, "feAnnamari", "keystroke");
     }
 }
