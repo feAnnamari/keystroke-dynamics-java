@@ -176,18 +176,18 @@ public class Panel extends javax.swing.JPanel implements KeyListener{
             if(i!=2)
             {
                 flightTimeT1 = ((double)(pressTime1-releaseTime2))/1000;
-                flightTimeT3 = ((double)(pressTime1-pressTime2))/1000;
+                //flightTimeT3 = ((double)(pressTime1-pressTime2))/1000;
                 controller.addFlightTimeT1(flightTimeT1);
-                controller.addFlightTimeT3(flightTimeT3);
+               // controller.addFlightTimeT3(flightTimeT3);
             }
             
         }
         else{
             pressTime2 = e.getWhen();
             flightTimeT1 = ((double)(pressTime2-releaseTime1))/1000;
-            flightTimeT3 = ((double)(pressTime2-pressTime1))/1000;
+            //flightTimeT3 = ((double)(pressTime2-pressTime1))/1000;
             controller.addFlightTimeT1(flightTimeT1);
-            controller.addFlightTimeT3(flightTimeT3);
+            //controller.addFlightTimeT3(flightTimeT3);
         }        
     }
 
@@ -197,22 +197,23 @@ public class Panel extends javax.swing.JPanel implements KeyListener{
         if(i%2==0){
             releaseTime1 = e.getWhen();
             dwellTime = ((double)(releaseTime1-pressTime1))/1000;
-            if(i!=2)
+            /*if(i!=2)
             {
                 flightTimeT2 = ((double)(releaseTime1-releaseTime2))/1000;
                 flightTimeT4 = ((double)(releaseTime1-pressTime2))/1000;
                 controller.addFlightTimeT2(flightTimeT2);
                 controller.addFlightTimeT4(flightTimeT4);
-            }
+            }*/
+            
             controller.addDwellTime(dwellTime);
         }
         else if((i%2)!=0){ 
             releaseTime2 = e.getWhen();
             dwellTime = ((double)(releaseTime2-pressTime2))/1000;
-            flightTimeT2 = ((double)(releaseTime2-releaseTime1))/1000;
-            flightTimeT4 = ((double)(releaseTime2-pressTime1))/1000;
-            controller.addFlightTimeT2(flightTimeT2);
-            controller.addFlightTimeT3(flightTimeT3);
+           // flightTimeT2 = ((double)(releaseTime2-releaseTime1))/1000;
+            //flightTimeT4 = ((double)(releaseTime2-pressTime1))/1000;
+            //controller.addFlightTimeT2(flightTimeT2);
+            //controller.addFlightTimeT3(flightTimeT3);
             controller.addDwellTime(dwellTime);
         }
         i++;

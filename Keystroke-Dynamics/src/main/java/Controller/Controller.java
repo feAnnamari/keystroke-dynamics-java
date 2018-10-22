@@ -21,9 +21,9 @@ public class Controller {
     
     private ArrayList<Double> dwellTimes = new ArrayList<>();
     private ArrayList<Double> flightTimesT1 = new ArrayList<>();
-    private ArrayList<Double> flightTimesT2 = new ArrayList<>();
+   /* private ArrayList<Double> flightTimesT2 = new ArrayList<>();
     private ArrayList<Double> flightTimesT3 = new ArrayList<>();
-    private ArrayList<Double> flightTimesT4 = new ArrayList<>();
+    private ArrayList<Double> flightTimesT4 = new ArrayList<>();*/
     private ArrayList<Typing> typings = new ArrayList<>();
 
     public Controller(Panel panel, MainFrame mainFrame) {
@@ -45,7 +45,7 @@ public class Controller {
         flightTimesT1.add(flightTimeT1);
     }
     
-    public void addFlightTimeT2(double flightTimeT2)
+  /*  public void addFlightTimeT2(double flightTimeT2)
     {
         flightTimesT2.add(flightTimeT2);
     }
@@ -58,18 +58,18 @@ public class Controller {
     public void addFlightTimeT4(double flightTimeT4)
     {
         flightTimesT4.add(flightTimeT4);
-    }
+    }*/
     
     public void addTyping()
     {
         Typing typing = new Typing();
-        typing.setTypings(dwellTimes, flightTimesT1, flightTimesT2, flightTimesT3, flightTimesT4);
+        typing.setTypings(dwellTimes, flightTimesT1);
         typings.add(typing);
         dwellTimes.clear();
         flightTimesT1.clear();
-        flightTimesT2.clear();
+        /*flightTimesT2.clear();
         flightTimesT3.clear();
-        flightTimesT4.clear();
+        flightTimesT4.clear();*/
     }
 
     public void saveToDataBase(String password) {

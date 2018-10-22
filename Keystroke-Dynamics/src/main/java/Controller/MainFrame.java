@@ -92,6 +92,7 @@ public class MainFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     
     private void start() {
+        System.out.print(System.getProperty("java.home"));
         setVisible(true);
         Controller controller = new Controller(panel1, this);
         panel1.setController(controller);
