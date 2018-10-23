@@ -5,6 +5,9 @@
  */
 package Controller;
 
+import MachineLearning.Network;
+import java.util.Arrays;
+
 /**
  *
  * @author Annamari
@@ -31,16 +34,17 @@ public class MainFrame extends javax.swing.JFrame {
         panel1 = new GUI.Panel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Kísérleti adatgyűjtés");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+            .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+            .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, Short.MAX_VALUE)
         );
 
         pack();
@@ -94,9 +98,20 @@ public class MainFrame extends javax.swing.JFrame {
     private void start() {
         System.out.print(System.getProperty("java.home"));
         setVisible(true);
+        setResizable(false);
         Controller controller = new Controller(panel1, this);
         panel1.setController(controller);
         panel1.setFocusable(true);
         controller.setting();
+        
+       Network net = new Network(4,1,3,4);
+       double[] input = new double[]{0.1,0.5,0.2,0.9};
+       double[] target = new double[]{0,1,0,0};
+        for (int i = 0; i < 10000; i++) {
+            net.train(input, target, 0.3);
+        }
+        
+        double[] o = net.calculate(input);
+       System.out.println(Arrays.toString(o));
     }
 }

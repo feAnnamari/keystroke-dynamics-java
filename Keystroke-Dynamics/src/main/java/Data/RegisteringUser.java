@@ -3,15 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package MachineLearning;
+package Data;
+
+import java.util.ArrayList;
 
 /**
  *
  * @author Annamari
  */
-public class InputLayer extends Layer{
-
-    public InputLayer() {
+public class RegisteringUser extends User{
+    
+    public RegisteringUser(String name, ArrayList<Typing> typings) {
+        super(name, typings);
     }
-
+    
 }

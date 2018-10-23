@@ -10,12 +10,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSetMetaData;
+import java.util.ArrayList;
 
 /**
  *
  * @author Annamari
  */
-public class InsertDB {
+public class DataBaseManager {
 
     private static String dbURL = "jdbc:derby://localhost:1527/KeyStrokeDB";
     private static String typingTableName = "Typing";
@@ -24,10 +25,8 @@ public class InsertDB {
     private static Connection connection = null;
     private static Statement stmt = null;
 
-    public void Start(User user)
+    public void Start(ArrayList<Typing> typings)
     {
-        createConnection();
-        insertTypings(user);
         //shutdown();
     }
     
@@ -46,19 +45,19 @@ public class InsertDB {
         }
     }
     
-    private static void insertTypings(User user)
+    public static void insertTypings(ArrayList<Typing> typings)
     {
         try
         {
-            
+            createConnection();
             stmt = connection.createStatement();
             //stmt.execute("insert into " + usersTableName + " values ('" + user.getName() + "')");
             System.out.println();
-            for (Typing typing : user.getTypings()) {
+            for (Typing typing : typings) {
                 if(typing.getDwellTimes().size() == Global.PASSWORD.length() && typing.getFlightTimesT1().size() == (Global.PASSWORD.length()-1))
                 {                  
-                    stmt.execute("insert into " + typingTableName + " (USERNAME, DWELLTIME1, DWELLTIME2, DWELLTIME3, DWELLTIME4, DWELLTIME5, DWELLTIME6, DWELLTIME7, DWELLTIME8, DWELLTIME9, DWELLTIME10, DWELLTIME11, FLIGHTTIME1, FLIGHTTIME2, FLIGHTTIME3, FLIGHTTIME4, FLIGHTTIME5, FLIGHTTIME6, FLIGHTTIME7, FLIGHTTIME8, FLIGHTTIME9, FLIGHTTIME10)" +
-                        " values ((SELECT NAME FROM USERS WHERE USERS.NAME ='" + user.getName() + "')," +
+                    stmt.execute("insert into " + typingTableName + " (DWELLTIME1, DWELLTIME2, DWELLTIME3, DWELLTIME4, DWELLTIME5, DWELLTIME6, DWELLTIME7, DWELLTIME8, DWELLTIME9, DWELLTIME10, DWELLTIME11, FLIGHTTIME1, FLIGHTTIME2, FLIGHTTIME3, FLIGHTTIME4, FLIGHTTIME5, FLIGHTTIME6, FLIGHTTIME7, FLIGHTTIME8, FLIGHTTIME9, FLIGHTTIME10)" +
+                        " values (" +
                         typing.getDwellTimes().get(0) + ","+ typing.getDwellTimes().get(1) + "," +
                         typing.getDwellTimes().get(2) + ","+ typing.getDwellTimes().get(3) + ","+
                         typing.getDwellTimes().get(4) + ","+ typing.getDwellTimes().get(5) + ","+
@@ -79,38 +78,6 @@ public class InsertDB {
             sqlExcept.printStackTrace();
         }
     }
-    
-  /*  private static void selectRestaurants()
-    {
-        try
-        {
-            stmt = conn.createStatement();
-            ResultSet results = stmt.executeQuery("select * from " + typingTableName);
-            ResultSetMetaData rsmd = results.getMetaData();
-            int numberCols = rsmd.getColumnCount();
-            for (int i=1; i<=numberCols; i++)
-            {
-                //print Column Names
-                System.out.print(rsmd.getColumnLabel(i)+"\t\t");  
-            }
-
-            System.out.println("\n-------------------------------------------------");
-
-            while(results.next())
-            {
-                int id = results.getInt(1);
-                String restName = results.getString(2);
-                String cityName = results.getString(3);
-                System.out.println(id + "\t\t" + restName + "\t\t" + cityName);
-            }
-            results.close();
-            stmt.close();
-        }
-        catch (SQLException sqlExcept)
-        {
-            sqlExcept.printStackTrace();
-        }
-    }*/
     
     private static void shutdown()
     {
