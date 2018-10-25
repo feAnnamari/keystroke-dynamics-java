@@ -5,6 +5,7 @@
  */
 package Data;
 
+import MachineLearning.Network;
 import java.util.ArrayList;
 
 /**
@@ -12,19 +13,27 @@ import java.util.ArrayList;
  * @author Annamari
  */
 public class User {
-    private String name;
+    private String email;
     private ArrayList<Typing> typings;
+    private Network network;
 
-    public User(String name, ArrayList<Typing> typings) {
-        this.name = name;
+    public User(String name,  Network network) {
+        this.email = name;
         this.typings = typings;
+        this.network = network;
     }
 
-    public String getName() {
-        return name;
+    public String getEmail() {
+        return email;
     }
 
     public ArrayList<Typing> getTypings() {
         return typings;
     }
+
+    public Network getNetwork() {
+        return network;
+    }
+    
+    
 }

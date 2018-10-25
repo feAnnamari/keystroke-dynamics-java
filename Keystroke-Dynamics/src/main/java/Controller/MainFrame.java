@@ -104,14 +104,23 @@ public class MainFrame extends javax.swing.JFrame {
         panel1.setFocusable(true);
         controller.setting();
         
-       Network net = new Network(4,1,3,4);
-       double[] input = new double[]{0.1,0.5,0.2,0.9};
-       double[] target = new double[]{0,1,0,0};
+       Network net = new Network(4,3,3,2);
+       double[] input = new double[]{0.1,0.2,0.3,0.4};
+       double[] target = new double[]{1,0};
+       
+       double[] input2 = new double[]{0.6,0.1,0.4,0.8};
+       double[] target2 = new double[]{0,1};
+       
         for (int i = 0; i < 10000; i++) {
             net.train(input, target, 0.3);
+            net.train(input2, target2, 0.3);
         }
-        
-        double[] o = net.calculate(input);
-       System.out.println(Arrays.toString(o));
+        System.out.println();
+        System.out.println("--------------- TEST ----------------");
+       // double[] o = net.calculate(input);
+       System.out.println(Arrays.toString(net.calculate(input)));
+       System.out.println(Arrays.toString(net.calculate(input2)));
+       System.out.println("--------------- END TEST ----------------");
+       
     }
 }

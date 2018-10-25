@@ -476,6 +476,8 @@ public class Panel extends javax.swing.JPanel implements KeyListener{
             {
                 txtInput.setEnabled(false);
                 controller.calculate(pressTimes,releaseTimes);
+                //controller.addTyping();
+                controller.calculateNeural(txtName.getText(), pressTimes, releaseTimes);
                 pressTimes.clear();
                 releaseTimes.clear();
             }
