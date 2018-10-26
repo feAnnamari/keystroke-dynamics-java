@@ -41,7 +41,7 @@ public class Network {
             this.output_derivative[i] = new double[NETWORK_LAYER_SIZES[i]];
             this.bias[i] = NetworkTools.createRandomArray(NETWORK_LAYER_SIZES[i], -0.5, 0.7);
             
-            if(i>0) //az első rétegnek nem lesz előző réteggek összecsatolása!
+            if(i>0) //az első rétegnek nem lesz előző réteggel összecsatolása!
             {
                 weights[i] = NetworkTools.createRandomArray(NETWORK_LAYER_SIZES[i], NETWORK_LAYER_SIZES[i-1], -1,1);
             }

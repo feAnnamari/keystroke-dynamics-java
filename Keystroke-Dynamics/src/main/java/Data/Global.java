@@ -11,4 +11,15 @@ package Data;
  */
 public class Global {
     public static String PASSWORD = "neutr0sc3nt";
+
+    public static String getPASSWORD()
+    {
+        return PASSWORD;
+    }
+
+    public static void setPASSWORD(String PASSWORD)
+    {
+        Global.PASSWORD = PASSWORD;
+    }
+    
 }

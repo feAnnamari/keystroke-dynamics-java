@@ -8,6 +8,7 @@ package GUI;
 
 import Controller.Controller;
 import java.awt.BorderLayout;
+import javax.swing.WindowConstants;
 
 /**
  *
@@ -15,8 +16,8 @@ import java.awt.BorderLayout;
  */
 public class RegistrationFrame extends javax.swing.JFrame {
 
-        private final int WIDTH = 450;
-        private final int HEIGHT = 450;
+        private final int WIDTH = 350;
+        private final int HEIGHT = 300;
         private Controller controller;
     
     public RegistrationFrame(Controller controller) {
@@ -33,11 +34,15 @@ public class RegistrationFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         reigstrationPanel2 = new GUI.RegistrationPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Bejelentkezés");
+
+        reigstrationPanel2.setBackground(new java.awt.Color(166, 171, 129));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -62,6 +67,8 @@ public class RegistrationFrame extends javax.swing.JFrame {
         reigstrationPanel2.setController(controller);
         reigstrationPanel2.setFocusable(true);
         controller.setRegPanel(reigstrationPanel2);
+        this.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

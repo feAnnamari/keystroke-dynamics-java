@@ -18,6 +18,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.JOptionPane;
 import static jdk.nashorn.internal.objects.NativeMath.max;
 import static jdk.nashorn.internal.objects.NativeMath.min;
 
@@ -38,7 +39,7 @@ public class Controller {
         this.regPanel = regPanel;
     }
     
-    private double DELTA = 0.015;
+    private double DELTA = 0.03;
     
     private ArrayList<Double> dwellTimes = new ArrayList<>();
     private ArrayList<Double> flightTimesT1 = new ArrayList<>();
@@ -49,7 +50,7 @@ public class Controller {
     private double[] target = new double[]{1,0};
     private double[] intruderTarget = new double[]{0,1};
     
-    private int HIDDEN_LAYER_NUM = 10;
+    private int HIDDEN_LAYER_NUM = 20;
     private int OUTPUT_NUM = 2;
     
     private Connection connection;
@@ -78,8 +79,6 @@ public class Controller {
         Typing typing = new Typing();
         typing.setTypings(dwellTimes, flightTimesT1);
         typings.add(typing);
-        dwellTimes.clear();
-        flightTimesT1.clear();
     }
 
     public void saveToDataBase(String name) {
@@ -87,7 +86,7 @@ public class Controller {
        DataBaseManager insertDB = new DataBaseManager();
        insertDB.insertTypings(typings);
        panel.txtSetEnable(true);
-       typings.clear();
+       //typings.clear();
     }
     
 
@@ -107,13 +106,14 @@ public class Controller {
         RegistrationFrame regFrame = new RegistrationFrame(this);
     }
 
-    public void calculateNeural(String email, ArrayList<Long> pressTimes, ArrayList<Long> releaseTimes) {
+    public void calculateNeural(String email, ArrayList<Long> pressTimes, ArrayList<Long> releaseTimes, boolean learning) {
         
-        calculate(pressTimes, releaseTimes);
+        //calculate(pressTimes, releaseTimes);
         
         //ArrayList<Double> normInputs = new ArrayList<>();
         ArrayList<Double> intruderinputs1 = new ArrayList<>();
         ArrayList<Double> intruderinputs2 = new ArrayList<>();
+        
         
         inputs.addAll(dwellTimes);
         inputs.addAll(flightTimesT1);
@@ -130,9 +130,6 @@ public class Controller {
         
         double[] intruderinput1 = intruderinputs1.stream().mapToDouble(d -> d).toArray();
         double[] intruderinput2 = intruderinputs2.stream().mapToDouble(d -> d).toArray();
-        //double[] normInput = scaleValues(input);
-        //double[] normint1 = scaleValues(intruderinput1);
-        //double[] normint2 = scaleValues(intruderinput2);
    
         Network net = null;
         for (User user : users) {
@@ -143,29 +140,42 @@ public class Controller {
                 
             }
         }   
-        if(userRegistered)
+        if(userRegistered && !learning)
         {     
             double[] o = net.calculate(input);
             System.out.println(Arrays.toString(o));
             userRegistered = false;
+            boolean success = false;
+            double[] result = new double[net.calculate(input).length];
+            for (int i = 0; i < result.length; i++) {
+                result[i] = net.calculate(input)[i];
+            }
+            if(result[0]>result[1])
+            {
+                success = true;
+            }
+            regPanel.setInformation(success);
         }
+        else if(!userRegistered && !learning)
+        {
+            JOptionPane.showMessageDialog(null, "Hibás név és/vagy jelszó!", "Hiba", JOptionPane.ERROR_MESSAGE);
+        }
+            
         else{
             net = new Network(input.length, HIDDEN_LAYER_NUM, OUTPUT_NUM);
             User user = new User(email, net);
             users.add(user);
-            for (int i = 0; i < 1000; i++) 
+            for (int i = 0; i < 14000; i++) 
             {
-                net.train(input, target, 0.3); //1-0
-                net.train(intruderinput1, intruderTarget, 0.3); //0-1
-                net.train(intruderinput1, intruderTarget, 0.3);
+                net.train(input, target, 0.7); //1-0
+                net.train(intruderinput1, intruderTarget, 0.5); //0-1
+                net.train(intruderinput2, intruderTarget, 0.5);
             }   
-            double[] o = net.calculate(input);
-            double[] int1 = net.calculate(intruderinput1);
-            double[] int2 = net.calculate(intruderinput1);
+ 
             System.out.println("--------------- TYPING ----------------");
-            System.out.println(Arrays.toString(o));
-            System.out.println(Arrays.toString(int1));
-            System.out.println(Arrays.toString(int2));
+            System.out.println(Arrays.toString(net.calculate(input)));
+            System.out.println(Arrays.toString(net.calculate(intruderinput1)));
+            System.out.println(Arrays.toString(net.calculate(intruderinput2)));
             System.out.println("--------------- END TYPING ----------------");
         }
         dwellTimes.clear();
@@ -176,38 +186,5 @@ public class Controller {
         
     }
     
-    public double[] scaleValues(double[] vals) {
-        double[] result = new double[vals.length];
-        double min = minArray(vals);
-        double max = maxArray(vals);
-        double scaleFactor = max - min;
-        // scaling between [0..1] for starters. Will generalize later.
-        for (int x = 0; x < vals.length; x++) {
-            //result[x] = Math.round(((vals[x] - min) / scaleFactor)*1000.00000)/1000.00000;
-            //result[x] = ((vals[x] - min) / scaleFactor);
-            result[x] = Math.round(vals[x]*1000.0000)/100.0000;
-        }
-        return result;
-    }
- 
-    // The standard collection classes don't have array min and max.
-    public double minArray(double[] vals) {
-        double min = vals[0];
-        for (int x = 1; x < vals.length; x++) {
-            if (vals[x] < min) {
-                min = vals[x];
-            }
-        }
-        return min;
-    }
- 
-    public double maxArray(double[] vals) {
-        double max = vals[0];
-        for (int x = 1; x < vals.length; x++) {
-            if (vals[x] > max) {
-                max = vals[x];
-            }
-        }
-        return max;
-    }
+    
 }

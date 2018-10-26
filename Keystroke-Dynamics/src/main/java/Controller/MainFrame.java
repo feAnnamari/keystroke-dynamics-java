@@ -14,8 +14,8 @@ import java.util.Arrays;
  */
 public class MainFrame extends javax.swing.JFrame {
 
-        private final int WIDTH = 380;
-        private final int HEIGHT = 700;
+        private final int WIDTH = 500;
+        private final int HEIGHT = 800;
 
     public MainFrame() {
         initComponents();
@@ -29,22 +29,26 @@ public class MainFrame extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         panel1 = new GUI.Panel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Kísérleti adatgyűjtés");
+        setTitle("Gépelési dinamika");
+
+        panel1.setBackground(new java.awt.Color(133, 150, 166));
+        panel1.setForeground(new java.awt.Color(168, 182, 191));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, Short.MAX_VALUE)
+            .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, Short.MAX_VALUE)
+            .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, 885, Short.MAX_VALUE)
         );
 
         pack();
@@ -75,6 +79,8 @@ public class MainFrame extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        
+        
         //</editor-fold>
         //</editor-fold>
 
