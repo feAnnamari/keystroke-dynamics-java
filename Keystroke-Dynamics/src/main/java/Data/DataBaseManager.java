@@ -21,14 +21,8 @@ public class DataBaseManager {
     private static String dbURL = "jdbc:derby://localhost:1527/KeyStrokeDB";
     private static String typingTableName = "Typing";
     private static String usersTableName = "Users";
-    // jdbc Connection
     private static Connection connection = null;
     private static Statement stmt = null;
-
-    public void Start(ArrayList<Typing> typings)
-    {
-        //shutdown();
-    }
     
     private static void createConnection()
     {

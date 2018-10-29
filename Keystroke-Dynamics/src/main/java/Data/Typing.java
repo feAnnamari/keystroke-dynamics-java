@@ -14,9 +14,6 @@ import java.util.ArrayList;
 public class Typing {
     private ArrayList <Double> dwellTimes = new ArrayList<>();
     private ArrayList <Double> flightTimesT1 = new ArrayList<>();
-    /*private ArrayList <Double> flightTimesT2 = new ArrayList<>();
-    private ArrayList <Double> flightTimesT3 = new ArrayList<>();
-    private ArrayList <Double> flightTimesT4 = new ArrayList<>();*/
 
     public Typing() {
     }

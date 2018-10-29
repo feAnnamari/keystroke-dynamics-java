@@ -14,13 +14,13 @@ import javax.swing.WindowConstants;
  *
  * @author Annamari
  */
-public class RegistrationFrame extends javax.swing.JFrame {
+public class LoginFrame extends javax.swing.JFrame {
 
         private final int WIDTH = 350;
         private final int HEIGHT = 300;
         private Controller controller;
     
-    public RegistrationFrame(Controller controller) {
+    public LoginFrame(Controller controller) {
         initComponents();
         this.controller = controller;
         settings();
@@ -37,7 +37,7 @@ public class RegistrationFrame extends javax.swing.JFrame {
     private void initComponents()
     {
 
-        reigstrationPanel2 = new GUI.RegistrationPanel();
+        reigstrationPanel2 = new GUI.LoginPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bejelentkezés");
@@ -66,13 +66,13 @@ public class RegistrationFrame extends javax.swing.JFrame {
         setResizable(false);
         reigstrationPanel2.setController(controller);
         reigstrationPanel2.setFocusable(true);
-        controller.setRegPanel(reigstrationPanel2);
+        controller.setLoginPanel(reigstrationPanel2);
         this.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private GUI.RegistrationPanel reigstrationPanel2;
+    private GUI.LoginPanel reigstrationPanel2;
     // End of variables declaration//GEN-END:variables
 
     

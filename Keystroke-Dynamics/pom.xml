@@ -22,5 +22,13 @@
         <artifactId>derbyclient</artifactId>
         <version>10.14.1.0</version>
         </dependency>
-    </dependencies>
+        
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+
+    </dependencies>    
 </project>

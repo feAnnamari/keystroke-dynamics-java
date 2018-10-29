@@ -14,12 +14,10 @@ import java.util.ArrayList;
  */
 public class User {
     private String email;
-    private ArrayList<Typing> typings;
     private Network network;
 
     public User(String name,  Network network) {
         this.email = name;
-        this.typings = typings;
         this.network = network;
     }
 
@@ -27,9 +25,6 @@ public class User {
         return email;
     }
 
-    public ArrayList<Typing> getTypings() {
-        return typings;
-    }
 
     public Network getNetwork() {
         return network;

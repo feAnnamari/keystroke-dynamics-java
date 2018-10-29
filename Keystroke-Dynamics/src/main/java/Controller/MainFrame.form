@@ -34,11 +34,8 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="GUI.Panel" name="panel1">
+    <Component class="GUI.RegistrationPanel" name="panel1">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="a6" green="96" red="85" type="rgb"/>
-        </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="bf" green="b6" red="a8" type="rgb"/>
         </Property>

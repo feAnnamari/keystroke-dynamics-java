@@ -19,7 +19,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     public MainFrame() {
         initComponents();
-        beallitas();
+        setting();
     }
 
     /**
@@ -32,7 +32,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents()
     {
 
-        panel1 = new GUI.Panel();
+        panel1 = new GUI.RegistrationPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gépelési dinamika");
@@ -92,13 +92,13 @@ public class MainFrame extends javax.swing.JFrame {
         });
     }
 
-    private void beallitas() {
+    private void setting() {
         this.setSize(WIDTH, HEIGHT);
         this.setLocationRelativeTo(null);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private GUI.Panel panel1;
+    private GUI.RegistrationPanel panel1;
     // End of variables declaration//GEN-END:variables
     
     private void start() {
@@ -123,7 +123,6 @@ public class MainFrame extends javax.swing.JFrame {
         }
         System.out.println();
         System.out.println("--------------- TEST ----------------");
-       // double[] o = net.calculate(input);
        System.out.println(Arrays.toString(net.calculate(input)));
        System.out.println(Arrays.toString(net.calculate(input2)));
        System.out.println("--------------- END TEST ----------------");
