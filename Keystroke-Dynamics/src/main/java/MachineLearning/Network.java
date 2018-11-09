@@ -65,13 +65,13 @@ public double[] calculate (double... input)
     return output[NETWORK_SIZE-1];
 }
     
-    public void train(double[] input, double[] target, double eta)
-    {
-        if(input.length != INPUT_SIZE || target.length != OUTPUT_SIZE) return;
-        calculate(input);
-        backpropError(target);
-        updateWeights(eta);
-    }
+public void train(double[] input, double[] target, double eta)
+{
+    if(input.length != INPUT_SIZE || target.length != OUTPUT_SIZE) return;
+    calculate(input);
+    backpropError(target);
+    updateWeights(eta);
+}
     
 public void backpropError(double[] target)
 {
@@ -105,8 +105,8 @@ public void updateWeights(double eta) {
     }
 }
     
-    private double sigmoid(double x)
-    {
-        return 1d/(1+Math.exp(-x));
-    } 
+private double sigmoid(double x)
+{
+    return 1d/(1+Math.exp(-x));
+} 
 }

@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -131,12 +132,19 @@ public class LoginPanel extends javax.swing.JPanel implements KeyListener{
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        if(pressTimes.size() == releaseTimes.size())
+        
+        if(pressTimes.size() == releaseTimes.size() && txtPassword.getText().equals(Global.PASSWORD))
          {
             controller.calculate(pressTimes, releaseTimes);
             controller.calculateNeural(txtEmail.getText(), false);
          }
-         back();
+        else if(!txtPassword.getText().equals(Global.PASSWORD))
+        {
+            JOptionPane.showMessageDialog(null, "Hibás név és/vagy jelszó!", "Hiba", JOptionPane.ERROR_MESSAGE);
+            lblLogin.setText("");
+        }
+        back();
+         
     }//GEN-LAST:event_btnLoginActionPerformed
 
     @Override
@@ -144,12 +152,13 @@ public class LoginPanel extends javax.swing.JPanel implements KeyListener{
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e) {           
         if(e.getKeyCode()!= KeyEvent.VK_BACK_SPACE)
         {
             pressTimes.add(e.getWhen());
+            
         }
-        else
+        else if(e.getKeyCode()== KeyEvent.VK_BACK_SPACE)
         {
             pressTimes.remove(pressTimes.size()-1);
             releaseTimes.remove(releaseTimes.size()-1);
@@ -160,16 +169,8 @@ public class LoginPanel extends javax.swing.JPanel implements KeyListener{
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode()!= KeyEvent.VK_BACK_SPACE){
             releaseTimes.add(e.getWhen());
-            checkPassLength();
         }
         
-    }
-
-     private void checkPassLength() {
-          if(txtPassword.getText().equals(Global.PASSWORD)&& txtPassword.isEnabled())
-            {
-                txtPassword.setEnabled(false);
-          }
     }
     
     private void settings() {

@@ -423,10 +423,7 @@ public class RegistrationPanel extends javax.swing.JPanel implements KeyListener
         lblPassword.setVisible(true);
         txtSetEnable(true);
         lblWrite.setVisible(true);
-        if(Global.PASSWORD.equals("neutr0sc3nt"))
-        {
-            btnSave.setEnabled(true);
-        }
+        
         }
     }//GEN-LAST:event_btnRegActionPerformed
 
@@ -524,6 +521,10 @@ public class RegistrationPanel extends javax.swing.JPanel implements KeyListener
                 releaseTimes.clear();
             }
         }
+        if(!txtInputs.get(txtInputs.size()-1).isEnabled())
+        {
+            btnSave.setEnabled(true);
+        }
     }
 
     private void txtInputsListIN() {
@@ -554,8 +555,7 @@ public class RegistrationPanel extends javax.swing.JPanel implements KeyListener
     public void txtSetEnable(boolean b) {
         for (JTextField txtInput : txtInputs) {
             txtInput.setText("");
-            txtInput.setEnabled(b);
-            
+            txtInput.setEnabled(b);  
         }
     }
     
